@@ -1,0 +1,68 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang=en>
+  <head>
+        <meta charset='utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel="stylesheet" href="{% static 'css/MDB5/mdb.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"/>
+        <link rel="icon" type="image/png" href="{% static 'ico/favicon.ico' %}"/>
+        <title>Baller | Sign Up</title>
+
+  </head>
+  <body>
+    <section class="section">
+      <div class="row justify-content-center">
+        <!-- left colum -->
+        <div class="col-4">
+          <img src="{% static 'img/ico_circle.png' %}" alt="" style="width: 110%;">
+        </div>
+
+        <!-- right colum -->
+        <div class="col-6">
+          <h3>Crie sua conta</h3>
+          <form action="" method="post" role="form">
+            {% csrf_token %}
+            {{ form }}
+            <br>
+          <!-- Submit button -->
+          <button type="submit" name="action" class="btn btn-primary btn-block mb-4">Sign up</button>
+       
+          </form>
+            <!-- Register buttons -->
+            <div class="text-center">
+              <p>ou entre com:</p>
+              <button type="button" class="btn btn-primary btn-floating mx-1">
+                <i class="fab fa-facebook-f"></i>
+              </button>
+
+              <button type="button" class="btn btn-primary btn-floating mx-1">
+                <i class="fab fa-google"></i>
+              </button>
+
+              <button type="button" class="btn btn-primary btn-floating mx-1">
+                <i class="fab fa-instagram"></i>
+              </button>
+              <br>
+              <br>
+              <p>Já é cadastrado? Faça seu <a href="{% url 'login' %}">Login</a></p>
+            </div>
+          
+
+            
+
+        </div><!-- right colum -->
+      </div> <!-- row justify-content-center -->
+
+    </section>
+
+    <script type="text/javascript" src="{% static 'js/MDB5/mdb.min.js' %}"></script>
+  </body>
+</html>
+
+
+
+

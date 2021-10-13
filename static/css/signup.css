@@ -1,0 +1,11 @@
+.section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+
+    /* background */
+    background-color: #1345eb;
+}
+

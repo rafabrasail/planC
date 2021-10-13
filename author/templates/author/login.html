@@ -1,0 +1,98 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang=en>
+  <head>
+      <meta charset='utf-8'>
+      <meta name='viewport' content='width=device-width, initial-scale=1'>
+      <link rel="stylesheet" href="{% static 'css/bulma/bulma.min.css' %}">
+      <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link rel="icon" type="image/png" href="{% static 'ico/favicon.ico' %}"/>
+      <script src="{% static 'js/functions.js' %}" defer></script>
+      {% block scripts %}
+      {% endblock scripts %}
+      <title>Chute na Gaveta | {% block title %}{% endblock title %}</title>
+  </head>
+
+  <body>
+  <section class="section">
+    <div class="container">    
+
+
+
+
+
+      <div class="columns is-mobile has-text-centered">
+          <div class="columns">
+
+
+
+        <div class="column is-four-fifths is-offset-one-quarter">
+          <div class="card">
+            <div class="card-content">
+
+              <div class="column">
+                <img
+                  src="{% static 'img/ico_circle.png' %}"
+                  alt="Bulma: a modern CSS framework based on Flexbox"
+                  width="auto"
+                  height="28"
+                />
+                </div>
+                <div class="column">
+
+              <form method="post" action="" role="form">
+              {% csrf_token %}
+              <!-- title -->
+              <h3 class="title is-3">Login</h3>
+              <!-- username -->
+              <div class="field">
+                <label class="label is-medium">Username</label>
+                <div class="control">
+                  {{ form.username }}
+                </div>
+              </div>
+              <!-- password -->
+              <div class="field">
+                <label class="label is-medium">Password</label>
+                <div class="control">
+                  {{ form.password }}
+                </div>
+              </div>
+              <!-- if erro template -->
+              {% if form.errors %}
+              <div class="row">
+                <div class="col s12">
+                  <span style="color: red; font-weight: bold;">Your username or password did not match.</span>
+                </div>
+              </div>
+              {% endif %}  
+              <!-- login button  -->
+              <div class="field">
+                <p class="control">
+                  <button type="submit" value="login" class="button is-success">
+                    Login
+                  </button>
+                </p>
+              </div>      
+              <!-- ??? -->
+              <input type="hidden" name="next" value="{{ next }}">
+              <!-- create account button -->
+              <a href="{% url 'signup' %}" class="button is-info">Create an account</a>
+              </form>
+
+                </div>
+              </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </body>
+</html>
+
