@@ -1,68 +1,140 @@
 {% load static %}
 
+{% load widget_tweaks %}
+
 <!DOCTYPE html>
 <html lang=en>
   <head>
-        <meta charset='utf-8'>
-        <meta name='viewport' content='width=device-width, initial-scale=1'>
-        <link rel="stylesheet" href="{% static 'css/MDB5/mdb.min.css' %}">
-        <link rel="stylesheet" href="{% static 'css/signup.css' %}">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"/>
-        <link rel="icon" type="image/png" href="{% static 'ico/favicon.ico' %}"/>
-        <title>Baller | Sign Up</title>
-
+      <meta charset='utf-8'>
+      <meta name='viewport' content='width=device-width, initial-scale=1'>
+      <link rel="stylesheet" href="{% static 'css/bulma/bulma.min.css' %}">
+      <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link rel="icon" type="image/png" href="{% static 'ico/favicon.ico' %}"/>
+      <script src="{% static 'js/functions.js' %}" defer></script>
+      {% block scripts %}
+      {% endblock scripts %}
+      <title>Baller | Sign up</title>
   </head>
+
   <body>
-    <section class="section">
-      <div class="row justify-content-center">
-        <!-- left colum -->
-        <div class="col-4">
-          <img src="{% static 'img/ico_circle.png' %}" alt="" style="width: 110%;">
-        </div>
+  <section class="section">
+    <div class="container">    
 
-        <!-- right colum -->
-        <div class="col-6">
-          <h3>Crie sua conta</h3>
-          <form action="" method="post" role="form">
-            {% csrf_token %}
-            {{ form }}
-            <br>
-          <!-- Submit button -->
-          <button type="submit" name="action" class="btn btn-primary btn-block mb-4">Sign up</button>
-       
-          </form>
-            <!-- Register buttons -->
-            <div class="text-center">
-              <p>ou entre com:</p>
-              <button type="button" class="btn btn-primary btn-floating mx-1">
-                <i class="fab fa-facebook-f"></i>
-              </button>
+        <div class="card">
+          <div class="columns">
 
-              <button type="button" class="btn btn-primary btn-floating mx-1">
-                <i class="fab fa-google"></i>
-              </button>
+            <!-- Column left -->
+            <div class="column" id="logo">
+              <img  src="{% static 'img/ico_circle.png' %}" 
+                    class="rounded-circle"
+                    style="max-width: 100%; height: auto;"
+                    >
+            </div> <!-- Column left -->
 
-              <button type="button" class="btn btn-primary btn-floating mx-1">
-                <i class="fab fa-instagram"></i>
-              </button>
-              <br>
-              <br>
-              <p>Já é cadastrado? Faça seu <a href="{% url 'login' %}">Login</a></p>
-            </div>
-          
+            <!-- Column right -->
+            <div class="column ">
+              <div class="columns">
+                <div class="column is-11">
 
-            
+                  <!-- form -->
+                  <form method="post" action="" role="form">
+                    {% csrf_token %}
+                    <!-- title -->
+                    <h1 class="title is-2">Sign Up</h1>
 
-        </div><!-- right colum -->
-      </div> <!-- row justify-content-center -->
+                    <!-- username -->
+                    <div class="field">
+                      <label class="label is-medium">Username</label>
+                      <div class="control has-icons-left has-icons-right">
+                        {{ form.username | attr:"placeholder: Username" }}
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-user"></i>
+                        </span>
+                      </div>
+                    </div>
 
-    </section>
+                    <!-- email -->
+                    <div class="field">
+                      <label class="label is-medium">Seu melhor email</label>
+                      <div class="control has-icons-left has-icons-right">
+                        {{ form.email | attr:"placeholder: email" }}
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-at"></i>
+                        </span>
+                      </div>
+                    </div>
 
-    <script type="text/javascript" src="{% static 'js/MDB5/mdb.min.js' %}"></script>
+                    <!-- password -->
+                    <div class="field">
+                      <label class="label is-medium">Password</label>
+                      <div class="control has-icons-left has-icons-right">
+                        {{ form.password | add_class:"input" | attr:"placeholder: Password" }}
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-lock"></i>
+                        </span>  
+                      </div>
+                    </div>       
+                    
+                    <!-- repeat password -->
+                    <div class="field">
+                      <label class="label is-medium">Confirm your password</label>
+                      <div class="control has-icons-left has-icons-right">
+                        {{ form.confirm_password | add_class:"input" | attr:"placeholder: Confirm your Password" }}
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-lock"></i>
+                        </span>  
+                      </div>
+                    </div>  
+
+                    <!-- if erro template -->
+                    {% if form.errors %}
+                    <div class="row">
+                      <div class="col s12">
+                        <span style="color: red; font-weight: bold;">Your username or password did not match.</span>
+                      </div>
+                    </div>
+                    {% endif %}  
+
+                    <br>
+
+                    <div class="field">
+                      <p class="control">
+                        <button type="submit" value="login" class="button is-success">
+                          Sign Up
+                        </button>
+                      </p>
+                    </div>   
+
+                    <!-- for next page link -->
+                    <input type="hidden" name="next" value="{{ next }}">
+
+                  </form>
+
+                  <p>Ou entre com:</p>
+
+                  <div>
+                    
+                    <i class="fab fa-facebook-f"></i>
+
+                    <i class="fab fa-instagram"></i>
+                    
+
+                    <i class="fab fa-google"></i>
+
+                    
+                  </div>
+                  
+                
+                  </div>   <!-- column is-11 -->
+                </div>   <!-- columns is-mobile -->
+              </div>   <!-- Column right -->            
+          </div>   <!-- columns -->
+        </div>  <!-- card -->
+    </div>   <!-- container -->
+  </section>
+
   </body>
 </html>
-
-
-
-

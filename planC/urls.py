@@ -18,11 +18,13 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from author.views import UserMainPage
+from posts.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('posts.urls')),
     path('authorization/', include('author.urls')),
-    path('<username>/', UserMainPage, name='mainpage'),
+    # path('<username>/', UserMainPage, name='mainpage'),
     
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

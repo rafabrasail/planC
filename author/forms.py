@@ -29,13 +29,13 @@ def UniqueUser(value):
 
 class SignUpForm(forms.ModelForm):
     username = forms.CharField(widget=forms.TextInput(
-        attrs={'class': 'form-control'}), max_length=30, required=True,)
+        attrs={'class': 'input is-medium'}), max_length=30, required=True,)
     email = forms.CharField(widget=forms.EmailInput(
-        attrs={'class': 'form-control'}), max_length=100, required=True,)
+        attrs={'class': 'input is-medium'}), max_length=100, required=True,)
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+        widget=forms.PasswordInput(attrs={'class': 'input is-medium'}))
     confirm_password = forms.CharField(widget=forms.PasswordInput(
-        attrs={'class': 'form-control'}), required=True, label="Confirm your password.")
+        attrs={'class': 'input is-medium'}), required=True, label="Confirm your password.")
 
     class Meta:
 

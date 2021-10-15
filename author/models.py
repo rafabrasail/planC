@@ -20,6 +20,12 @@ def user_directory_path(instance, filename):
 
 
 class Profile(models.Model):
+    FOOT = (
+        ("E", "Left"),
+        ("D", "Right"),
+        ("B", "Both")
+    )
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     first_name = models.CharField(max_length=50, null=True, blank=True)
     last_name = models.CharField(max_length=50, null=True, blank=True)
@@ -27,6 +33,9 @@ class Profile(models.Model):
     url = models.CharField(max_length=80, null=True, blank=True)
     profile_info = models.TextField(max_length=150, null=True, blank=True)
     created = models.DateField(auto_now_add=True)
+    born = models.DateField(auto_now_add=False, null=True, blank=True)
+    favorite_foot = models.CharField(max_length=1, choices=FOOT, default="E")
+    club = models.CharField(max_length=50, null=True, blank=True)
     # favorites = models.ManyToManyField(Post)
     picture = models.ImageField(upload_to=user_directory_path, blank=True, null=True, verbose_name='Picture')    
 
