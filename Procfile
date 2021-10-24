@@ -1,0 +1,1 @@
+web: gunicorn planC.wsgi --log-file -
