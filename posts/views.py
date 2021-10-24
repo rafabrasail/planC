@@ -33,3 +33,21 @@ def index(request):
     }
 
     return HttpResponse(template.render(context, request))
+
+
+def temp_conversation(request):
+    template = loader.get_template('conversations.html')
+    context = {}
+    return HttpResponse(template.render(context,request))
+
+
+def temp_notifications(request):
+    template = loader.get_template('notifications.html')
+    context = {}
+    return HttpResponse(template.render(context,request))
+
+
+def temp_profile(request):
+    template = loader.get_template('profile.html')
+    context = {}
+    return HttpResponse(template.render(context,request))    

@@ -28,6 +28,12 @@ def UniqueUser(value):
 
 
 class SignUpForm(forms.ModelForm):
+    first_name = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'input is-medium'}), max_length=50, required=False)
+    last_name = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'input is-medium'}), max_length=50, required=False)
+    # born = forms.DateField(widget=forms.DateInput(
+    #     attrs={'class': 'input is-medium', 'type': 'date', 'format':'%d%m%Y'}), input_formats=['%d%m%Y'], required=True,)
     username = forms.CharField(widget=forms.TextInput(
         attrs={'class': 'input is-medium'}), max_length=30, required=True,)
     email = forms.CharField(widget=forms.EmailInput(
@@ -40,7 +46,7 @@ class SignUpForm(forms.ModelForm):
     class Meta:
 
         model = User
-        fields = ('username', 'email', 'password')
+        fields = ('first_name', 'last_name', 'username', 'email', 'password')
 
     def __init__(self, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
@@ -100,8 +106,16 @@ class EditProfileForm(forms.ModelForm):
         attrs={'class': 'input is-medium'}), max_length=60, required=False)
     profile_info = forms.CharField(widget=forms.Textarea(
         attrs={'class': 'input is-medium'}), max_length=150, required=False)
+    # born = forms.DateField(widget=forms.DateField(
+    #     attrs={'class': 'input is-medium'}))
+    # favorite_foot = forms.IntegerField
+    # club = forms.CharField(widget=forms.TextInput(
+    #     attrs={'class': 'input is-medium'}), max_length=50, required=False)
+
 
     class Meta:
         model = Profile
         fields = ('picture', 'first_name', 'last_name',
                   'location', 'url', 'profile_info')
+
+

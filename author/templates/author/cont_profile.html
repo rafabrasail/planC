@@ -1,0 +1,115 @@
+{% load static %}
+
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang=en>
+  <head>
+      <meta charset='utf-8'>
+      <meta name='viewport' content='width=device-width, initial-scale=1'>
+      <link rel="stylesheet" href="{% static 'css/bulma/bulma.min.css' %}">
+      <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link rel="icon" type="image/png" href="{% static 'ico/favicon.ico' %}"/>
+      <script src="{% static 'js/functions.js' %}" defer></script>
+      {% block scripts %}
+      {% endblock scripts %}
+      <title>Baller | Login</title>
+  </head>
+
+  <body>
+
+    <section class="section">
+        <div class="container">    
+            <div class="card">
+   
+                <div class="card-content">
+                  <!-- form -->
+                  <form method="post" action="" role="form">
+                    {% csrf_token %}
+                    <!-- title -->
+                    <h1 class="title is-2">Continue seu cadastro</h1>
+
+                    <div class="columns">
+                    
+                    <div class="column">  
+                    <!-- First Name -->
+                    <div class="field">
+                      <label class="label is-medium">Seu primeiro Nome</label>
+                      <div class="control has-icons-right">
+                        {{ form.first_name | add_class:"input" | attr:"placeholder: Nome" }}
+                      </div>
+                    </div>
+                    </div>
+                  
+                    <div class="column">  
+                    <!-- Sobrenome -->
+                    <div class="field">
+                      <label class="label is-medium">Seu sobrenome</label>
+                      <div class="control has-icons-right">
+                        {{ form.last_name | add_class:"input" | attr:"placeholder: Sobrenome" }}
+                      </div>
+                    </div>  
+                    </div> 
+                    
+                    </div>
+
+                    <!-- location -->
+                    <div class="field">
+                      <label class="label is-medium">Onde você esta agora?</label>
+                      <div class="control has-icons-right">
+                        {{ form.location | add_class:"input" | attr:"placeholder: Localização" }}
+                      </div>
+                    </div>        
+
+                    <!-- url -->
+                    <div class="field">
+                      <label class="label is-medium">Seu link</label>
+                      <div class="control has-icons-right">
+                        {{ form.url | add_class:"input" | attr:"placeholder: link" }}
+                      </div>
+                    </div>       
+                    
+                    <!-- profile_info -->
+                    <div class="field">
+                      <label class="label is-medium">Bio</label>
+                      <div class="control has-icons-right">
+                        {{ form.profile_info | add_class:"input" | attr:"placeholder: Bio" }}
+                      </div>
+                    </div>                              
+                    
+                    <!-- if erro template -->
+                    {% if form.errors %}
+                    <div class="row">
+                      <div class="col s12">
+                        <span style="color: red; font-weight: bold;">Your username or password did not match.</span>
+                      </div>
+                    </div>
+                    {% endif %}  
+
+                    <br>
+
+                    <div class="field">
+                      <p class="control">
+                        <button type="submit" value="login" class="button is-success">
+                          continuar
+                        </button>
+                      </p>
+                    </div>   
+
+                    <!-- for next page link -->
+                    <input type="hidden" name="next" value="{{ next }}">
+
+                  </form>
+                  </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+  </body>
+</html>

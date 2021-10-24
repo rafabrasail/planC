@@ -1,0 +1,23 @@
+{% extends 'base.html' %}  
+
+{% load static %}  
+
+{% block title %}Principal{% endblock title %}
+
+{% block content %}  
+
+<div class="container">
+    <div class="columns">
+        <div class="column is-one-fifth" >
+          <div style="position: fixed; width: 18%;">
+            <img src="{% static 'img/banner.png' %}" alt="" style="width: 100%; padding-top: 50%;">
+          </div>
+        </div>
+        <div class="column">
+            <br>
+            Notifications
+        </div>
+    </div>
+</div>
+
+{% endblock %}  

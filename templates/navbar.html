@@ -1,6 +1,5 @@
 {% load static %}
 
-
 <nav
   class="navbar is-info"
   role="navigation"
@@ -48,15 +47,15 @@
       <a class="navbar-item" href="{% url 'index' %}">
         <span><i class="fas fa-home fa-lg"></i></span>
       </a>
-      <a class="navbar-item">
+      <a class="navbar-item" href="{% url 'temporatio_direct' %}">
         <span><i class="fas fa-comment fa-lg"></i></span>
         <span class="badge">8</span>
-      </a>
-      <a class="navbar-item">
+      </a>     
+      <a class="navbar-item" href="{% url 'temporatio_notifications' %}">
         <span><i class="fas fa-bell fa-lg"></i></span>
         <span class="badge">2</span>
       </a>
-      <a class="navbar-item">
+      <a class="navbar-item" href="{% url 'temp_profile' %}">    
         <span><i class="fas fa-user-alt fa-lg"></i></span>
       </a>
       <a class="navbar-item">

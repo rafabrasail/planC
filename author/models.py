@@ -29,6 +29,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     first_name = models.CharField(max_length=50, null=True, blank=True)
     last_name = models.CharField(max_length=50, null=True, blank=True)
+    #nome artistico ou de atleta 
     location = models.CharField(max_length=50, null=True, blank=True)
     url = models.CharField(max_length=80, null=True, blank=True)
     profile_info = models.TextField(max_length=150, null=True, blank=True)

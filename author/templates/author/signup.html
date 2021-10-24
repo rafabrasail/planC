@@ -10,10 +10,14 @@
       <link rel="stylesheet" href="{% static 'css/bulma/bulma.min.css' %}">
       <link rel="stylesheet" href="{% static 'css/signup.css' %}">
       <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link rel="icon" type="image/png" href="{% static 'ico/favicon.ico' %}"/>
       <script src="{% static 'js/functions.js' %}" defer></script>
+
+      <link href="https://unpkg.com/bulma-calendar@6.0.7/dist/css/bulma-calendar.min.css" rel="stylesheet">
+      <script src="https://unpkg.com/bulma-calendar@6.0.7/dist/js/bulma-calendar.min.js"></script>
+      <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
       {% block scripts %}
       {% endblock scripts %}
       <title>Baller | Sign up</title>
@@ -45,11 +49,38 @@
                     <!-- title -->
                     <h1 class="title is-2">Sign Up</h1>
 
+                    <div class="columns">
+                      <div class="column">
+                        <!-- first name -->
+                        <div class="field">
+                          <label class="label is-medium">Nome</label>
+                          <div class="control has-icons-left has-icons-right">
+                            {{ form.first_name | attr:"placeholder: Nome" }}
+                            <span class="icon is-small is-left">
+                              <i class="fas fa-user"></i>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="column">
+                        <!-- first name -->
+                        <div class="field">
+                          <label class="label is-medium">Sobenome</label>
+                          <div class="control has-icons-left has-icons-right">
+                            {{ form.last_name | attr:"placeholder: Sobrenome" }}
+                            <span class="icon is-small is-left">
+                              <i class="fas fa-user"></i>
+                            </span>
+                          </div>
+                        </div>
+                      </div>                      
+                    </div>
+
                     <!-- username -->
                     <div class="field">
                       <label class="label is-medium">Username</label>
                       <div class="control has-icons-left has-icons-right">
-                        {{ form.username | attr:"placeholder: Username" }}
+                        {{ form.username | attr:"placeholder: Apelido" }}
                         <span class="icon is-small is-left">
                           <i class="fas fa-user"></i>
                         </span>
@@ -66,6 +97,18 @@
                         </span>
                       </div>
                     </div>
+
+
+                    <!-- born -->
+                    <!-- <div class="field">
+                      <label class="label is-medium">Data de Nascimento</label>
+                      <div class="control has-icons-left has-icons-right">
+                        {{ form.born | attr:"placeholder: Sua data de nascimento" }}
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-at"></i>
+                        </span>
+                      </div>
+                    </div>         -->
 
                     <!-- password -->
                     <div class="field">
@@ -93,7 +136,7 @@
                     {% if form.errors %}
                     <div class="row">
                       <div class="col s12">
-                        <span style="color: red; font-weight: bold;">Your username or password did not match.</span>
+                        <span style="color: red; font-weight: bold;">Algo deu errado, tente novamente.</span>
                       </div>
                     </div>
                     {% endif %}  

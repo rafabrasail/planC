@@ -56,10 +56,19 @@ def SignUp(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
+            first_name = form.cleaned_data.get('first_name')
+            last_name = form.cleaned_data.get('last_name')
             username = form.cleaned_data.get('username')
             email = form.cleaned_data.get('email')
+            # born = form.cleaned_data.get('born')
             password = form.cleaned_data.get('password')
-            User.objects.create_user(username=username, email=email, password=password)
+            User.objects.create_user(
+                first_name=first_name, 
+                last_name=last_name, 
+                # born=born,
+                username=username, 
+                email=email, 
+                password=password)
             return redirect('login')
     else:
         form = SignUpForm()
@@ -69,3 +78,40 @@ def SignUp(request):
     }
 
     return render(request, 'author/signup.html', context)
+
+
+def ContinueRegisterSingUp(request):
+    if request.method == "POST":
+        form = EditProfileForm(request.POST)
+        if form.is_valid():
+            first_name = form.cleaned_data.get('first_name')
+            last_name = form.cleaned_data.get('last_name')
+            location = form.cleaned_data.get('location')
+            url = form.cleaned_data.get('url')
+            profile_info = form.cleaned_data.get('profile_info')
+            born = form.cleaned_data.get('born')
+            favorite_foot = form.cleaned_data.get('favorite_foot')
+            club = form.cleaned_data.get('club')
+            picture = form.cleaned_data.get('picture')
+            User.objects.create_user(
+                first_name=first_name, 
+                last_name=last_name, 
+                location = location,
+                url=url,
+                profile_info=profile_info,
+                born = born, 
+                favorite_foot=favorite_foot,
+                club=club,
+                picture=picture
+                )
+            return redirect('mainpage')
+    else:
+        form = EditProfileForm()
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'author/cont_profile.html', context)
+
+
