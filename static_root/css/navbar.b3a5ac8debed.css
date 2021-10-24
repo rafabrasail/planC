@@ -1,0 +1,45 @@
+.fa-home,
+.fa-comment,
+.fa-bell,
+.fa-user-alt,
+.fa-font-awesome-flag,
+.fa-cog {
+    color: rgb(255, 255, 255);
+}
+
+.fa-home:hover,
+.fa-comment:hover,
+.fa-bell:hover,
+.fa-user-alt:hover,
+.fa-font-awesome-flag:hover,
+.fa-cog:hover {
+    color: rgb(163, 163, 163);
+}
+
+.badge {
+    position: absolute;
+    bottom: 5px;
+    right: 15px;
+    width: 15px;
+    height: 15px;
+    /* padding: 0px 6px; */
+    border-radius: 50%;
+    background: rgb(0, 196, 42);
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    font-size: 10px;
+}
+
+
+/* .badge {
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    padding: 8px;
+    background: rgb(2, 224, 13);
+    border: 2px solid #666;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    font: 32px Arial, sans-serif;
+} */
