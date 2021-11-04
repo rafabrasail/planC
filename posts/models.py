@@ -4,6 +4,7 @@ from django.db.models.signals import post_save, post_delete
 from django.utils.text import slugify
 from django.urls import reverse
 import uuid
+from django.conf import settings
 # from notifications.models import Notifications
 
 
@@ -34,7 +35,7 @@ class Tag(models.Model):
 
 class PostFileContent(models.Model):
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='content_owner')
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='content_owner')
     file = models.FileField(upload_to=user_directory_path)
 
 
@@ -45,7 +46,8 @@ class Post(models.Model):
     caption = models.TextField(max_length=1500, verbose_name='Caption')
     posted = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField(Tag, related_name='tags')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
     likes = models.IntegerField(default=0)
 
     def get_absolute_url(self):
@@ -57,9 +59,9 @@ class Post(models.Model):
 
 class Follow(models.Model):
     follower = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='follower')
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='follower')
     following = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='following')
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='following')
 
     def user_follow(sender, instance, *args, **kwargs):
         follow = instance
@@ -82,8 +84,9 @@ class Follow(models.Model):
 
 class Stream(models.Model):
     following = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='stream_following')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='stream_following')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     date = models.DateTimeField()
 
@@ -99,7 +102,7 @@ class Stream(models.Model):
 
 class Likes(models.Model):
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='user_like')
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_like')
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, related_name='post_likes')
 

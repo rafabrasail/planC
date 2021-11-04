@@ -32,8 +32,8 @@ class SignUpForm(forms.ModelForm):
         attrs={'class': 'input is-medium'}), max_length=50, required=False)
     last_name = forms.CharField(widget=forms.TextInput(
         attrs={'class': 'input is-medium'}), max_length=50, required=False)
-    # born = forms.DateField(widget=forms.DateInput(
-    #     attrs={'class': 'input is-medium', 'type': 'date', 'format':'%d%m%Y'}), input_formats=['%d%m%Y'], required=True,)
+    born = forms.DateField(widget=forms.DateInput(format='%Y-%m-%d', attrs={
+        'class': 'input is-medium', 'type': 'date'}), input_formats=('%Y-%m-%d'))
     username = forms.CharField(widget=forms.TextInput(
         attrs={'class': 'input is-medium'}), max_length=30, required=True,)
     email = forms.CharField(widget=forms.EmailInput(
@@ -46,7 +46,7 @@ class SignUpForm(forms.ModelForm):
     class Meta:
 
         model = User
-        fields = ('first_name', 'last_name', 'username', 'email', 'password')
+        fields = ('first_name', 'last_name', 'username', 'email', 'born', 'password')
 
     def __init__(self, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
@@ -54,6 +54,7 @@ class SignUpForm(forms.ModelForm):
         self.fields['username'].validators.append(InvalidUser)
         self.fields['username'].validators.append(UniqueUser)
         self.fields['email'].validators.append(UniqueEmail)
+        self.fields['born'].input_formats = ['%Y-%m-%d']
 
     def clean(self):
         super(SignUpForm, self).clean()

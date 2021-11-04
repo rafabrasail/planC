@@ -38,9 +38,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    'users',
     'author',
     'posts',
+    'comment',
+    'direct',
+    'stories',
+    'notifications',
 ]
+
+AUTH_USER_MODEL = "users.User"
+
+AUTHENTICATION_BACKENDS = ['users.backends.EmailBackend']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

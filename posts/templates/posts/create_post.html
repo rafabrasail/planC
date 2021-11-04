@@ -1,0 +1,55 @@
+{% load static %}
+
+<div class="modal" id="createPostModal">
+
+    <div class="modal-background"></div>
+
+    <div class="modal-card">
+
+        <header class="modal-card-head">
+            <p class="modal-card-title">Create new post</p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+
+        <section class="modal-card-body">
+            <form method="post" enctype="multipart/form-data" action="" role="form">
+            {% csrf_token %}    
+                <!-- picture -->
+                <div class="field">
+                    <label class="label is-medium">Choose your files</label>
+                    <div class="control">
+                        {{ form.content }}
+                    </div>
+                </div>      
+
+                <!-- caption -->
+                <div class="field">
+                    <label class="label is-medium">Caption</label>
+                    <div class="control">
+                        {{ form.caption }}
+                    </div>
+                </div>
+
+                <!-- tags -->
+                <div class="field">
+                    <label class="label is-medium">Tags (add tags, separeted by commas)</label>
+                    <div class="control">
+                        {{ form.tags }}
+                    </div>
+                </div>   
+        
+            </form>
+        </section>
+
+        <footer class="modal-card-foot">
+            
+            <button type="submit" name="action" class="button is-success">
+                Create my post
+            </button>
+  
+            <button class="button">Cancel</button>
+
+        </footer>
+
+    </div>
+</div>

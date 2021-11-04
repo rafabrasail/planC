@@ -8,12 +8,21 @@
 <div class="container">
     <div class="columns">
         <div class="column is-one-fifth" >
-          <div style="position: fixed; width: 18%;">
-            <img src="{% static 'img/banner.png' %}" alt="" style="width: 100%; padding-top: 50%;">
+          <div style="position: fixed; width: 11vw;">
+            <img src="{% static 'img/banner.png' %}" alt="" style="padding-top: 20px;">
           </div>
         </div>
         <div class="column is-half">
-            <br>
+          <br>
+          <!-- create post -->
+          <a  name="" class="showModal" id="buttonModal">
+            <p>Create post here</p>
+          </a>
+
+          {% include "posts/create_post.html" %}
+
+          <br>
+
             <div class="card">
 
               <div class="card-content">
@@ -230,4 +239,11 @@
         </div>
     </div>
 </div>
+
+
+
 {% endblock %}  
+
+{% block scripts %}
+        <script src="{% static 'js/main.js' %}" defer></script>
+{% endblock scripts %}
