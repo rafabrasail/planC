@@ -1,1 +1,21 @@
-	1. pip install -r requirements.txt
+pip install -r requirements.txt
+
+django-widget-tweaks
+
+whitenoise
+
+
+HttpResponse x render
+#With render
+def view_page(request):
+    # View code here...
+    return render(request, 'app/index.html', {
+        'value': 'data',
+    }, content_type='application/xhtml+xml')
+
+#with HttpResponse
+def view_page(request):
+    # View code here...
+    t = loader.get_template('app/index.html')
+    c = {'value': 'data'}
+    return HttpResponse(t.render(c, request), content_type='application/xhtml+xml')

@@ -2,7 +2,11 @@
 
 {% load static %}  
 
-{% block title %}Principal{% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/post.css' %}">
+{% endblock css %}
+
+{% block title %}post{% endblock title %}
 
 {% block content %}  
 <div class="container">
