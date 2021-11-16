@@ -1,8 +1,10 @@
 pip install -r requirements.txt
 
-django-widget-tweaks
+pip install django-widget-tweaks
 
-whitenoise
+pip install whitenoise
+
+pip install django-bulma
 
 
 HttpResponse x render

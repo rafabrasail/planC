@@ -1,17 +1,16 @@
 from django.db import models
 # from django.contrib.auth.models import User
+# from users.models import User
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.contrib.auth import get_user_model
 from PIL import Image
-from django.conf import settings
+
 import os
 import author
 
-
-# from django.contrib.auth import get_user_model
-
-# User = get_user_model()
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 
 def user_directory_path(instance, filename):
@@ -32,7 +31,8 @@ class Profile(models.Model):
         ("B", "Both")
     )
 
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    #user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
     first_name = models.CharField(max_length=50, null=True, blank=True)
     last_name = models.CharField(max_length=50, null=True, blank=True)
     #nome artistico ou de atleta 

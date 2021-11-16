@@ -1,7 +1,14 @@
 from django import forms
-from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from author.models import Profile
+
+from django.contrib.auth import get_user_model
+from django.conf import settings
+
+from users.models import User
+#from django.contrib.auth.models import User
+#User = settings.AUTH_USER_MODEL
+#User = get_user_model
 
 
 def ForbiddenUsers(value):

@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.models import User
-
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 
@@ -13,10 +12,17 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator
 from django.urls import resolve, reverse
 
+from users.models import User
+#from django.contrib.auth.models import User
+#from django.contrib.auth import get_user_model
+#User = get_user_model()
 
+
+@login_required
 def UserMainPage(request, username):
     user = get_object_or_404(User, username=username)
-    # profile = Profile.objects.get(user=user)
+    #user = get_object_or_404(settings.AUTH_USER_MODEL, username=username)
+    profile = Profile.objects.get(user=user)
     url_name = resolve(request.path).url_name
 	
     # if url_name == 'profile':
@@ -40,7 +46,7 @@ def UserMainPage(request, username):
     template = loader.get_template('mainpage.html')
 
     context = {
-        # 'profile':profile,
+        'profile':profile,
         # 'posts': posts_paginator,
         # 'following_count':following_count,
         # 'followers_count':followers_count,
@@ -93,7 +99,7 @@ def ContinueRegisterSingUp(request):
             favorite_foot = form.cleaned_data.get('favorite_foot')
             club = form.cleaned_data.get('club')
             picture = form.cleaned_data.get('picture')
-            User.objects.create_user(
+            settings.AUTH_USER_MODEL.objects.create_user(
                 first_name=first_name, 
                 last_name=last_name, 
                 location = location,
