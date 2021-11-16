@@ -1,10 +1,12 @@
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from users.models import User
 from django.db.models.signals import post_save, post_delete
 from django.utils.text import slugify
 from django.urls import reverse
 import uuid
 from django.conf import settings
+from author.models import Profile
 # from notifications.models import Notifications
 
 
@@ -41,11 +43,12 @@ class PostFileContent(models.Model):
 
 class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    content = models.ManyToManyField(PostFileContent, related_name='contents')
+    content = models.ManyToManyField(
+        PostFileContent, related_name='contents', blank=True, null=True)
     #picture = models.ImageField(upload_to=user_directory_path, verbose_name='Picture', null=False)
     caption = models.TextField(max_length=1500, verbose_name='Caption')
     posted = models.DateTimeField(auto_now_add=True)
-    tags = models.ManyToManyField(Tag, related_name='tags')
+    tags = models.ManyToManyField(Tag, related_name='tags', blank=True, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
     likes = models.IntegerField(default=0)

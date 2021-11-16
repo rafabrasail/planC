@@ -1,6 +1,6 @@
 {% load static %}
 
-<div class="modal" id="createPostModal">
+<div class="modal fade" id="createPostModal">
 
     <div class="modal-background"></div>
 
@@ -11,8 +11,8 @@
             <button class="delete" aria-label="close"></button>
         </header>
 
+        <form method="post" enctype="multipart/form-data" action="" role="form">
         <section class="modal-card-body">
-            <form method="post" enctype="multipart/form-data" action="" role="form">
             {% csrf_token %}    
                 <!-- picture -->
                 <div class="field">
@@ -38,7 +38,7 @@
                     </div>
                 </div>   
         
-            </form>
+            
         </section>
 
         <footer class="modal-card-foot">
@@ -50,6 +50,6 @@
             <button class="button">Cancel</button>
 
         </footer>
-
+        </form>
     </div>
 </div>

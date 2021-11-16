@@ -10,8 +10,9 @@ closeCreatePost.onclick = function() {
     modalCreatePost.style.display = 'none'
 }
 
-window.onclick = function(event) {
-    if(event.target.className == 'modal-background'){
-        modalCreatePost.style.display = 'none'
-    }
-}
+// window.onclick = function(event) {
+//     if(event.target.className == 'modal-background'){
+//         modalCreatePost.style.display = 'none'
+//     }
+// }
+

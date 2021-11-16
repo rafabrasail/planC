@@ -26,34 +26,34 @@ def index(request):
         id__in=group_ids).all().order_by('-posted')
 
 
-    tags_objs = []
-    files_objs = []
+    # tags_objs = []
+    # files_objs = []
 
-    if request.method == "POST":
-        form = NewPostForm(request.POST, request.FILES)
-        if form.is_valid():
-            files = request.FILES.getlist('content')
-            caption = form.cleaned_data.get('caption')
-            tags_form = form.cleaned_data.get('tags')
+    # if request.method == "POST":
+    #     form = NewPostForm(request.POST, request.FILES)
+    #     if form.is_valid():
+    #         files = request.FILES.getlist('content')
+    #         caption = form.cleaned_data.get('caption')
+    #         tags_form = form.cleaned_data.get('tags')
 
-            tags_list = list(tags_form.split(','))
+    #         tags_list = list(tags_form.split(','))
 
-            for tag in tags_list:
-                t, created = Tag.objects.get_or_create(title=tag)
-                tags_objs.append(t)
+    #         for tag in tags_list:
+    #             t, created = Tag.objects.get_or_create(title=tag)
+    #             tags_objs.append(t)
 
-            for file in files:
-                file_instance = PostFileContent(file=file, user=user)
-                file_instance.save()
-                files_objs.append(file_instance)
+    #         for file in files:
+    #             file_instance = PostFileContent(file=file, user=user)
+    #             file_instance.save()
+    #             files_objs.append(file_instance)
 
-            p, created = Post.objects.get_or_create(caption=caption, user=user)
-            p.tags.set(tags_objs)
-            p.content.set(files_objs)
-            p.save()
-            return redirect('index')
-    else:
-        form = NewPostForm()
+    #         p, created = Post.objects.get_or_create(caption=caption, user=user)
+    #         p.tags.set(tags_objs)
+    #         p.content.set(files_objs)
+    #         p.save()
+    #         return redirect('index')
+    # else:
+    #     form = NewPostForm()
 
 
     template = loader.get_template('mainpage.html')
@@ -61,7 +61,7 @@ def index(request):
     context = {
         'post_items': post_items,
         # 'stories': stories,
-        'form': form,
+        # 'form': form,
     }
 
     return HttpResponse(template.render(context, request))

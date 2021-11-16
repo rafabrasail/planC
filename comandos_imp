@@ -19,3 +19,7 @@ def view_page(request):
     t = loader.get_template('app/index.html')
     c = {'value': 'data'}
     return HttpResponse(t.render(c, request), content_type='application/xhtml+xml')
+
+
+##  no such table: users_user
+    python manage.py migrate --run-syncdb
