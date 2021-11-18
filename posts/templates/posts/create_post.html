@@ -1,5 +1,26 @@
 {% load static %}
 
+<div class="modal" id="pageModalCreatePost">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Modal title</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <p>My form goes here!</p>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success">Save changes</button>
+      <button class="button deleteBtn" id="closeModalCreatePost">Cancel</button>
+    </footer>
+  </div>
+</div>
+
+
+
+
+<!-- 
 <div class="modal fade" id="createPostModal">
 
     <div class="modal-background"></div>
@@ -13,33 +34,33 @@
 
         <form method="post" enctype="multipart/form-data" action="" role="form">
         <section class="modal-card-body">
-            {% csrf_token %}    
+            {% csrf_token %}     -->
                 <!-- picture -->
-                <div class="field">
+                <!-- <div class="field">
                     <label class="label is-medium">Choose your files</label>
                     <div class="control">
                         {{ form.content }}
                     </div>
-                </div>      
+                </div>       -->
 
                 <!-- caption -->
-                <div class="field">
+                <!-- <div class="field">
                     <label class="label is-medium">Caption</label>
                     <div class="control">
                         {{ form.caption }}
                     </div>
-                </div>
+                </div> -->
 
                 <!-- tags -->
-                <div class="field">
+                <!-- <div class="field">
                     <label class="label is-medium">Tags (add tags, separeted by commas)</label>
                     <div class="control">
                         {{ form.tags }}
                     </div>
                 </div>   
-        
+         -->
             
-        </section>
+        <!-- </section>
 
         <footer class="modal-card-foot">
             
@@ -52,4 +73,4 @@
         </footer>
         </form>
     </div>
-</div>
+</div> -->

@@ -1,18 +1,24 @@
-var buttonModalCreatePost = document.getElementById('buttonModal')
-var modalCreatePost = document.getElementById('createPostModal')
-var closeCreatePost = document.getElementsByClassName('delete')[0]
+var buttonCreatePost = document.getElementById('modalCreatePost')
+var modalCreatePost = document.getElementById('pageModalCreatePost')
+var close = document.getElementsByClassName('delete')[0];
+var closeBtn = document.getElementsByClassName('deleteBtn')[0];
 
-buttonModalCreatePost.onclick = function() {
-    modalCreatePost.style.display = 'block'
+buttonCreatePost.onclick = function() {
+  modalCreatePost.style.display = 'block';
 }
 
-closeCreatePost.onclick = function() {
+closeBtn.onclick = function() {
+  modalCreatePost.style.display = 'none';
+}
+
+close.onclick = function() {
+  modalCreatePost.style.display = 'none';
+}
+
+window.onclick = function(event){
+  if(event.target.className == 'modal-background') {
     modalCreatePost.style.display = 'none'
+  }
 }
 
-// window.onclick = function(event) {
-//     if(event.target.className == 'modal-background'){
-//         modalCreatePost.style.display = 'none'
-//     }
-// }
 
