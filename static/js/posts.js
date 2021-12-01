@@ -31,7 +31,7 @@ const likeUnlikePosts = ()=> {
         e.preventDefault()
         const clickedId = e.target.getAttribute('data-form-id')
         const clickedBtn = document.getElementById(`like-unlike-${clickedId}`)
-
+        console.log('like-unlike')
         $.ajax({
             type: 'POST',
             url: "/like-unlike/",
@@ -41,10 +41,7 @@ const likeUnlikePosts = ()=> {
             },
             success: function(response){
                 console.log('response', response)  //for debug
-                clickedBtn.textContent = response.liked ? 
-                    `<i class="material-icons">favorite_border</i> (${element.count})`
-                    : 
-                    `<i class="material-icons">favorite</i> (${element.count})`
+                clickedBtn.textContent = response.liked ? `Unlike (${response.count})` : `like (${response.count})`
             },
             error: function(error){
                 console.log('error', error)        //for debug
@@ -98,12 +95,9 @@ const getData = () => {
                         <div class="card-footer">
                             <div class="card-footer-item">
                                 <form class="like-unlike-forms" data-form-id="${element.id}">
-                                    <a href="#" id="like-unlike-${element.id}">
-                                        ${element.likes ?
-                                             `<i class="material-icons">favorite_border</i> (${element.count})` 
-                                             : 
-                                             `<i class="material-icons">favorite</i> (${element.count})`}
-                                    </a>
+                                    <button href="#" class="button is-white" id="like-unlike-${element.id}">
+                                        ${element.liked ? `Unlike (${element.count})` : `Like (${element.count})`}
+                                    </button>
                                 </form>
                             </div>
                             <div class="card-footer-item">comment</div>

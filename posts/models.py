@@ -51,7 +51,7 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag, related_name='tags', blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
-    likes = models.ManyToManyField(Profile, blank=True)
+    liked = models.ManyToManyField(Profile, blank=True)
 
     def get_absolute_url(self):
         return reverse('postdetails', args=[str(self.id)])
@@ -61,7 +61,7 @@ class Post(models.Model):
 
     @property
     def like_count(self):
-        return self.likes.all().count()
+        return self.liked.all().count()
 
 
 class Follow(models.Model):

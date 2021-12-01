@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Post, Stream, Tag, Likes, PostFileContent
+from .models import Post, Stream, Tag, PostFileContent
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http import JsonResponse
@@ -28,7 +28,7 @@ def load_posts(request):
             'id': obj.id,
             'caption': obj.caption,
             'posted': obj.posted,
-            'likes': True if request.user in obj.likes.all() else False,
+            'liked': True if request.user in obj.liked.all() else False,
             'user': obj.user.username,
             'count': obj.like_count,
         }
@@ -41,13 +41,13 @@ def like_unlike_post(request):
     if request.is_ajax():
         pk = request.POST.get('pk')
         obj = Post.objects.get(pk=pk)
-        if request.user.profile in obj.likes.all():
-            likes = False
-            obj.likes.remove(request.user.profile)
+        if request.user.profile in obj.liked.all():
+            liked = False
+            obj.liked.remove(request.user.profile)
         else:
-            likes = True
-            obj.likes.add(request.user.profile)
-        return JsonResponse({'likes': likes, 'count': obj.like_count})
+            liked = True
+            obj.liked.add(request.user.profile)
+        return JsonResponse({'liked': liked, 'count': obj.like_count})
 
 
 
