@@ -1,12 +1,12 @@
 from django.db import models
 # from django.contrib.auth.models import User
 from users.models import User
+from author.models import Profile
 from django.db.models.signals import post_save, post_delete
 from django.utils.text import slugify
 from django.urls import reverse
 import uuid
 from django.conf import settings
-from author.models import Profile
 # from notifications.models import Notifications
 
 
@@ -44,20 +44,24 @@ class PostFileContent(models.Model):
 class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     content = models.ManyToManyField(
-        PostFileContent, related_name='contents', blank=True, null=True)
+        PostFileContent, related_name='contents', blank=True)
     #picture = models.ImageField(upload_to=user_directory_path, verbose_name='Picture', null=False)
     caption = models.TextField(max_length=1500, verbose_name='Caption')
     posted = models.DateTimeField(auto_now_add=True)
-    tags = models.ManyToManyField(Tag, related_name='tags', blank=True, null=True)
+    tags = models.ManyToManyField(Tag, related_name='tags', blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
-    likes = models.IntegerField(default=0)
+    likes = models.ManyToManyField(Profile, blank=True)
 
     def get_absolute_url(self):
         return reverse('postdetails', args=[str(self.id)])
 
     def __str__(self):
         return str(self.id)
+
+    @property
+    def like_count(self):
+        return self.likes.all().count()
 
 
 class Follow(models.Model):

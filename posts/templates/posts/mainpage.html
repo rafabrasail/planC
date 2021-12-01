@@ -4,6 +4,7 @@
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/post.css' %}">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 {% endblock css %}
 
 {% block title %}post{% endblock title %}
@@ -11,31 +12,39 @@
 {% block content %}  
 <div class="container">
     <div class="columns">
+
+        <!-- banner column -->
         <div class="column is-one-fifth" >
           <div style="position: fixed; width: 11vw;">
             <img src="{% static 'img/banner.png' %}" alt="" style="padding-top: 20px;">
           </div>
         </div>
+        <!-- banner column -->
+
+        <!-- main column -->
         <div class="column is-half">
 
           <br>
           <button class="button is-primary" id="modalCreatePost">Primary</button>
           <br>
 
+          <i class="material-icons">visibility</i>
+          
           {% include "posts/create_post.html" %}
           
-
-
-
-
-
-          <!-- create post 
-          <a  name="" class="showModal" id="butModal_createPost" data-target="#createPostModal">
-            <p>Create post here</p>
-          </a> -->
-        
-
           <br>
+
+          <div id="posts-box"></div>
+
+          <div id="spinner-box">
+            <progress class="progress is-small is-primary" max="100"></progress>
+          </div>
+
+          <div class="text-center mb-3" id="end-box">
+              <button class="button is-primary" id="load-btn">Load More</button>
+          </div>          
+
+
 
             <div class="card">
 
@@ -181,8 +190,9 @@
 
 
         </div>
+        <!-- main column -->
 
-
+        <!-- right column -->
         <div class="column">
             <br>
         <div style="position: fixed;">
@@ -248,7 +258,7 @@
         <div style="position: fixed; bottom: 0%;">
           Notifications
         </div>
-  
+        <!-- right column -->
 
         </div>
     </div>
@@ -259,5 +269,6 @@
 {% endblock %}  
 
 {% block scripts %}
-        <script src="{% static 'js/main.js' %}" defer></script>
+  <script src="{% static 'js/main.js' %}" defer></script>
+  <script src="{% static 'js/posts.js' %}" defer></script>
 {% endblock scripts %}

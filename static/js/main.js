@@ -3,6 +3,11 @@ var modalCreatePost = document.getElementById('pageModalCreatePost')
 var close = document.getElementsByClassName('delete')[0];
 var closeBtn = document.getElementsByClassName('deleteBtn')[0];
 
+
+
+const loadBtn = document.getElementById('load-btn')
+const endBox = document.getElementById('end-box')
+
 buttonCreatePost.onclick = function() {
   modalCreatePost.style.display = 'block';
 }
@@ -20,5 +25,7 @@ window.onclick = function(event){
     modalCreatePost.style.display = 'none'
   }
 }
+
+
 
 

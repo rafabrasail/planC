@@ -1,7 +1,9 @@
-/* .modal {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  min-height: 100vh;
-} */
+.is-vcentered {
+    position: fixed;
+    top: 30%;
+    left: 30%;
+}
+
+.not-visible {
+    display: none;
+}

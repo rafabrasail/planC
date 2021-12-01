@@ -1,13 +1,19 @@
-# , NewPost, PostDetails, tags, like, favorite
-from posts.views import index, temp_conversation, temp_notifications, temp_profile
+# NewPost, PostDetails, tags, like, favorite
 from django.urls import path
+from .views import (
+    list_and_create_posts,
+    load_posts,
+    like_unlike_post,
+)
 
+app_name = 'posts'
 
 urlpatterns = [
-    path('', index, name='index'),
-    path('direct/', temp_conversation, name='temporatio_direct'),
-    path('notifications/', temp_notifications, name='temporatio_notifications'),
-    path('profile/', temp_profile, name='temp_profile'),
+    path('', list_and_create_posts, name='main-board'),
+    path('posts/', load_posts, name='posts-data'),
+    path('like-unlike/', like_unlike_post, name='like-unlike'),
+    # path('notifications/', temp_notifications, name='temporatio_notifications'),
+    # path('profile/', temp_profile, name='temp_profile'),
     # path('newpost/', NewPost, name='newpost'),
     # path('<uuid:post_id>/', PostDetails, name='postdetails'),
     # path('tag/<slug:tag_slug>', tags, name='tags'),
