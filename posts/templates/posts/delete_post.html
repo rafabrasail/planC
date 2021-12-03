@@ -1,6 +1,6 @@
 {% load static %}
 
-<div class="modal" id="pageModalCreatePost">
+<div class="modal" id="pageModalDeletePost">
 
   <!-- background -->
   <div class="modal-background"></div> 
@@ -10,17 +10,14 @@
 
     <div class="modal-card">
         <header class="modal-card-head">
-            <p class="modal-card-title">Crie seu post</p>
+            <p class="modal-card-title">Delete seu post <b>{{ obj.caption }}</b> </p>
             <button class="delete" aria-label="close"></button>
         </header>
-        <form id="form-newpost">
+        <form id="form-delete-post">
             {% csrf_token %}
-            <section class="modal-card-body">
-                {{form.as_p}}
-            </section>
             <footer class="modal-card-foot">
-                <button type="submit" class="button is-success" id='btn-save-post'>Save changes</button>
-                <button class="button deleteBtn" id="closeModalCreatePost">Cancel</button>
+                <button type="submit" class="button is-danger" id='btn-save-post'>delete post?</button>
+                <button class="button deleteBtn" id="closeModalDeletePost">cancel</button>
             </footer>
         </form>
     </div>

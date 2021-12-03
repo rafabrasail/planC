@@ -63,6 +63,9 @@ class Post(models.Model):
     def like_count(self):
         return self.liked.all().count()
 
+    class Meta:
+        ordering = ('-posted',)
+
 
 class Follow(models.Model):
     follower = models.ForeignKey(

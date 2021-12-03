@@ -4,7 +4,7 @@ from .models import Post, Stream, Tag, PostFileContent
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http import JsonResponse
-from posts.forms import NewPostForm
+from .forms import NewPostForm
 from django.urls import reverse
 from author.models import Profile
 from django.views.decorators.csrf import csrf_exempt
@@ -14,26 +14,45 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 @login_required
+@csrf_exempt
 def list_and_create_posts(request):
-    qs = Post.objects.all()
-    return render(request, 'posts/mainpage.html', {'qs': qs})
+    form = NewPostForm(request.POST or None)
+    # qs = Post.objects.all()
+    if request.is_ajax():
+        if form.is_valid():
+            # author = Profile.objects.get(user=request.user.profile)
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.save()
+            return JsonResponse({
+                'caption': instance.caption,
+                'id': instance.id
+            })
+
+    context = {
+        'form': form,
+        # 'qs': qs
+    }
+
+    return render(request, 'posts/mainpage.html', context)
 
 
 @login_required
 def load_posts(request):
-    qs = Post.objects.all()
-    data = []
-    for obj in qs:
-        item = {
-            'id': obj.id,
-            'caption': obj.caption,
-            'posted': obj.posted,
-            'liked': True if request.user in obj.liked.all() else False,
-            'user': obj.user.username,
-            'count': obj.like_count,
-        }
-        data.append(item)
-    return JsonResponse({'data': data})
+    if request.is_ajax():
+        qs = Post.objects.all()
+        data = []
+        for obj in qs:
+            item = {
+                'id': obj.id,
+                'caption': obj.caption,
+                'posted': obj.posted,
+                'liked': True if request.user in obj.liked.all() else False,
+                'user': obj.user.username,
+                'count': obj.like_count,
+            }
+            data.append(item)
+        return JsonResponse({'data': data})
 
 
 @login_required
@@ -49,6 +68,48 @@ def like_unlike_post(request):
             obj.liked.add(request.user.profile)
         return JsonResponse({'liked': liked, 'count': obj.like_count})
 
+
+def post_detail(request, pk):
+    obj = Post.objects.get(pk=pk)
+    form = NewPostForm()
+
+    context = {
+        'obj': obj,
+        'form': form
+    }
+
+    return render(request, 'posts/posts_detail.html', context)
+
+
+def post_detail_json(request, pk):
+    obj = Post.objects.get(pk=pk)
+    data = {
+        'id': obj.id,
+        'caption': obj.caption,
+        'posted': obj.posted,
+        'user': obj.user.username,
+        'logged_in': request.user.username,
+    }
+    return JsonResponse({'data': data})
+
+
+def update_posts(request, pk):
+    obj = Post.objects.get(pk=pk)
+    if request.is_ajax():
+        new_caption = request.POST.get('caption')
+        obj.caption = new_caption
+        obj.save()
+        return JsonResponse({
+            'id': obj.id,
+            'caption': obj.caption,
+        })
+
+
+def delete_posts(request, pk):
+    obj = Post.objects.get(pk=pk)
+    if request.is_ajax():
+        obj.delete()
+        return JsonResponse({})
 
 
 # @login_required
