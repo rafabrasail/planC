@@ -2,9 +2,9 @@ const postsBox = document.getElementById('posts-box')      // div to load posts
 const spinnerBox = document.getElementById('spinner-box')  // progress bar to load content
 
 const newPostForm = document.getElementById('form-newpost')
-const content = document.getElementById('id_content')
-const caption = document.getElementById('id_caption')
-const tags = document.getElementById('id_tags')
+// const content = document.getElementById('id_content')
+// const caption = document.getElementById('id_caption')
+// const tags = document.getElementById('id_tags')
 
 const csrf = document.getElementsByName('csrfmiddlewaretoken')
 //console.log('csrf', csrf[0].value)
@@ -124,77 +124,77 @@ const getData = () => {
 }
 
 
-newPostForm.addEventListener('submit', e => {
-    e.preventDefault()
+// newPostForm.addEventListener('submit', e => {
+//     e.preventDefault()
 
-    $.ajax({
-        type: 'POST',
-        url: '',
-        data: {
-            'csrfmiddlewaretoken': csrf[0].value,
-            'caption': caption.value,
-            // 'tags': tags.value,
-            // 'content': content.value
-        },
-        success: function(response){
-            console.log('response', response)
-            postsBox.insertAdjacentHTML('afterbegin', `
-                <div class="card mb-1">
-                    <div class="card-content">
-                        <div class="media">
-                            <div class="media-left">
-                                <figure class="image is-48x48">
-                                    <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image" class="is-rounded">
-                                </figure>
-                            </div>
-                            <div class="media-content">
-                                <p class="title is-4">${response.user}</p>
-                                <time datetime="2016-1-1">${response.posted}</time>
-                            </div>                        
-                        </div>
-                    </div>
+//     $.ajax({
+//         type: 'POST',
+//         url: '',
+//         data: {
+//             'csrfmiddlewaretoken': csrf[0].value,
+//             // 'caption': caption.value,
+//             // 'tags': tags.value,
+//             // 'content': content.value
+//         },
+//         success: function(response){
+//             console.log('response - user', response.user)
+//             console.log('response - newPostForm', response)
+//             postsBox.insertAdjacentHTML('afterbegin', `
+//                 <div class="card mb-1">
+//                     <div class="card-content">
+//                         <div class="media">
+//                             <div class="media-left">
+//                                 <figure class="image is-48x48">
+//                                     <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image" class="is-rounded">
+//                                 </figure>
+//                             </div>
+//                             <div class="media-content">
+//                                 <p class="title is-4">${response.user}</p>
+//                                 <time datetime="2016-1-1">${response.posted}</time>
+//                             </div>                        
+//                         </div>
+//                     </div>
     
-                    <div class=""card-image>
-                        <figure class="image is-4by3">
-                            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-                        </figure>                
-                    </div>
+//                     <div class=""card-image>
+//                         <figure class="image is-4by3">
+//                             <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+//                         </figure>                
+//                     </div>
     
-                    <div class="card-content">
-                        <div class="content">
-                            ${response.caption}
-                        </div>
-                    </div>
+//                     <div class="card-content">
+//                         <div class="content">
+//                             ${response.caption}
+//                         </div>
+//                     </div>
     
-                    <div class="card-footer">
-                        <div class="card-footer-item">
-                            <form class="like-unlike-forms" data-form-id="${response.id}">
-                                <button class="button is-white" id="like-unlike-${response.id}">
-                                    ${response.liked ? `Unlike (${response.count})` : `Like (0)`}
-                                </button>
-                            </form>
-                        </div>
-                        <div class="card-footer-item">comment</div>
-                        <div class="card-footer-item">share</div>
-                        <div class="card-footer-item">send</div>
-                    </div>
+//                     <div class="card-footer">
+//                         <div class="card-footer-item">
+//                             <form class="like-unlike-forms" data-form-id="${response.id}">
+//                                 <button class="button is-white" id="like-unlike-${response.id}">
+//                                     ${response.liked ? `Unlike (${response.count})` : `Like (0)`}
+//                                 </button>
+//                             </form>
+//                         </div>
+//                         <div class="card-footer-item">comment</div>
+//                         <div class="card-footer-item">share</div>
+//                         <div class="card-footer-item">send</div>
+//                     </div>
     
-                </div>            
-            `)
-            likeUnlikePosts()
-            $('#btn-save-post').click(function() {
-                // $('.modal').toggle('display: none')
-                $('.modal').removeClass("is-active");
-            });
-            handleAlerts('is-primary', 'New post created.')
-            newPostForm.reset()
-        },
-        error: function(error){
-            console.log('error', error)
-            handleAlerts('is-danger is-light', 'Ooops try again.')
-        }
-    })
-})
+//                 </div>            
+//             `)
+//             likeUnlikePosts()
+//             $('#btn-save-post').click(function() {
+//                 $('.modal').removeClass("is-active");
+//             });
+//             handleAlerts('is-primary', 'New post created.')
+//             newPostForm.reset()
+//         },
+//         error: function(error){
+//             console.log('error', error)
+//             handleAlerts('is-danger is-light', 'Ooops try again.')
+//         }
+//     })
+// })
 
 
 getData()

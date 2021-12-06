@@ -1,7 +1,7 @@
-var buttonCreatePost = document.getElementById('modalCreatePost')
-var modalCreatePost = document.getElementById('pageModalCreatePost')
-var close = document.getElementsByClassName('delete')[0];
-var closeBtn = document.getElementsByClassName('deleteBtn')[0];
+// var buttonCreatePost = document.getElementById('modalCreatePost')
+// var modalCreatePost = document.getElementById('pageModalCreatePost')
+// var close = document.getElementsByClassName('delete')[0];
+// var closeBtn = document.getElementsByClassName('deleteBtn')[0];
 const btnSavePost = document.getElementById('btn-save-post')
 
 const alertBox = document.getElementById('alert-box')
@@ -12,27 +12,27 @@ const closeNotification = document.getElementById('close-notification')
 const loadBtn = document.getElementById('load-btn')
 const endBox = document.getElementById('end-box')
 
-buttonCreatePost.onclick = function() {
-  modalCreatePost.style.display = 'block';
-}
+// buttonCreatePost.onclick = function() {
+//   modalCreatePost.style.display = 'block';
+// }
 
-closeBtn.onclick = function() {
-  modalCreatePost.style.display = 'none';
-}
+// closeBtn.onclick = function() {
+//   modalCreatePost.style.display = 'none';
+// }
 
-close.onclick = function() {
-  modalCreatePost.style.display = 'none';
-}
+// close.onclick = function() {
+//   modalCreatePost.style.display = 'none';
+// }
 
-btnSavePost.onclick = function() {
-  modalCreatePost.style.display = 'none';
-}
+// btnSavePost.onclick = function() {
+//   modalCreatePost.style.display = 'none';
+// }
 
-window.onclick = function(event){
-  if(event.target.className == 'modal-background') {
-    modalCreatePost.style.display = 'none'
-  }
-}
+// window.onclick = function(event){
+//   if(event.target.className == 'modal-background') {
+//     modalCreatePost.style.display = 'none'
+//   }
+// }
 
 
 const handleAlerts = (type, msg) => {
@@ -44,12 +44,14 @@ const handleAlerts = (type, msg) => {
   `
 }
 
-const postDeleted = localStorage.getItem('caption')
+// Voltar depois de resolver form post
 
-if (postDeleted) {
-  handleAlerts('is-danger', `deleted "${postDeleted}"`)
-  localStorage.clear()
-}
+// const postDeleted = localStorage.getItem('caption')
+
+// if (postDeleted) {
+//   handleAlerts('is-danger', `deleted "${postDeleted}"`)
+//   localStorage.clear()
+// }
 
 
 

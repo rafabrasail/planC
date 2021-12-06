@@ -117,7 +117,7 @@ updateForm.addEventListener('submit', e => {
     url: updateUrl,
     data: {
       'csrfmiddlewaretoken': csrf[0].value,
-      'caption': captionInput.value,
+      // 'caption': captionInput.value,       voltar depois de resolver o post form
     },
     success: function(response) {
       console.log('response', response)
@@ -146,7 +146,7 @@ deleteForm.addEventListener('submit', e => {
     success: function(response) {
       console.log('response', response)
       window.location.href = window.location.origin
-      localStorage.setItem('caption', captionInput.value)
+      // localStorage.setItem('caption', captionInput.value)     voltar depois de resolver post form
     },
     error: function(error) {
       console.log('error', error)

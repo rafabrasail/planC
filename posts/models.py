@@ -45,7 +45,7 @@ class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     content = models.ManyToManyField(
         PostFileContent, related_name='contents', blank=True)
-    #picture = models.ImageField(upload_to=user_directory_path, verbose_name='Picture', null=False)
+    # picture = models.ImageField(upload_to=user_directory_path, verbose_name='Picture', null=False)
     caption = models.TextField(max_length=1500, verbose_name='Caption')
     posted = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField(Tag, related_name='tags', blank=True)
@@ -63,8 +63,8 @@ class Post(models.Model):
     def like_count(self):
         return self.liked.all().count()
 
-    class Meta:
-        ordering = ('-posted',)
+    # class Meta:
+    #     ordering = ('-posted',)
 
 
 class Follow(models.Model):

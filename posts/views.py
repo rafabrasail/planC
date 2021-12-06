@@ -16,33 +16,88 @@ from django.views.decorators.csrf import csrf_exempt
 @login_required
 @csrf_exempt
 def list_and_create_posts(request):
-    form = NewPostForm(request.POST or None)
-    # qs = Post.objects.all()
-    if request.is_ajax():
-        if form.is_valid():
-            # author = Profile.objects.get(user=request.user.profile)
-            instance = form.save(commit=False)
-            instance.user = request.user
-            instance.save()
-            return JsonResponse({
-                'caption': instance.caption,
-                'id': instance.id
-            })
-
-    context = {
-        'form': form,
-        # 'qs': qs
-    }
-
+    context = {}
     return render(request, 'posts/mainpage.html', context)
 
 
+
+# @login_required     backup
+# @csrf_exempt
+# def list_and_create_posts(request):
+#         form = NewPostForm(request.POST, request.FILES)
+#         if request.is_ajax():
+#             if form.is_valid():
+#                 instance = form.save(commit=False)
+#                 instance.user = request.user
+#                 instance.save()
+#                 return JsonResponse({
+#                     'caption': instance.caption,
+#                     'id': instance.id
+#                 })
+
+#     context = {
+#         'form': form,
+#     }
+#     return render(request, 'posts/mainpage.html', context)
+
+
+@login_required
+def NewPost(request):
+    user = request.user
+    tags_objs = []
+    files_objs = []
+
+    if request.method == "POST":
+        form = NewPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            # picture = form.cleaned_data.get('picture')
+            files = request.FILES.getlist('content')
+            caption = form.cleaned_data.get('caption')
+            tags_form = form.cleaned_data.get('tags')
+
+            tags_list = list(tags_form.split(','))
+
+            for tag in tags_list:
+                t, created = Tag.objects.get_or_create(title=tag)
+                tags_objs.append(t)
+
+            for file in files:
+                file_instance = PostFileContent(file=file, user=user)
+                file_instance.save()
+                files_objs.append(file_instance)
+
+            p, created = Post.objects.get_or_create(caption=caption, user=user)
+            p.tags.set(tags_objs)
+            p.content.set(files_objs)
+            p.save()
+            return redirect('posts:main-board')
+    else:
+        form = NewPostForm()
+    
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'posts/new_posts.html', context)
+
+
+# função para carregar os posts na mainpage usando o getData JS para 
+# injetar os posts na página. O Stream é inserido aqui para exibir 
+# somente os conteúdos dos seguidores. 
 @login_required
 def load_posts(request):
     if request.is_ajax():
-        qs = Post.objects.all()
+        user = request.user
+        posts = Stream.objects.filter(user=user)
+        group_ids = []
+        for post in posts:
+            group_ids.append(post.post_id)
+
+        post_items = Post.objects.filter(
+            id__in=group_ids).all().order_by('-posted')
+
         data = []
-        for obj in qs:
+        for obj in post_items:
             item = {
                 'id': obj.id,
                 'caption': obj.caption,
@@ -53,6 +108,24 @@ def load_posts(request):
             }
             data.append(item)
         return JsonResponse({'data': data})
+
+
+# TODO: testar função para todos os posts (REELS) no DB
+# def reels(request):
+#     if request.is_ajax():
+#         qs = Post.objects.all()
+#         data = []
+#         for obj in qs:
+#             item = {
+#                 'id': obj.id,
+#                 'caption': obj.caption,
+#                 'posted': obj.posted,
+#                 'liked': True if request.user in obj.liked.all() else False,
+#                 'user': obj.user.username,
+#                 'count': obj.like_count,
+#             }
+#             data.append(item)
+#         return JsonResponse({'data': data})
 
 
 @login_required

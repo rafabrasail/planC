@@ -8,12 +8,14 @@ from .views import (
     post_detail_json,
     update_posts,
     delete_posts,
+    NewPost
 )
 
 app_name = 'posts'
 
 urlpatterns = [
     path('', list_and_create_posts, name='main-board'),
+    path('create-post/', NewPost, name='create-post'),
     path('posts/', load_posts, name='posts-data'),
     path('like-unlike/', like_unlike_post, name='like-unlike'),
     path('<pk>/data/', post_detail_json, name='posts-detail-json'),
