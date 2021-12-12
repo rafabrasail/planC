@@ -1,4 +1,5 @@
-const postsBox = document.getElementById('posts-box')      // div to load posts
+// const postsBox = document.getElementById('posts-box')      // div to load posts
+const likeBox = document.getElementById('like-box')      // div to load likes
 const spinnerBox = document.getElementById('spinner-box')  // progress bar to load content
 
 const newPostForm = document.getElementById('form-newpost')
@@ -29,6 +30,39 @@ const getCookie =(name) => {
 const csrftoken = getCookie('csrftoken');
 
 
+// const carousel = () => {
+//     const postCarousel = [...document.getElementsByClassName('mySlides')]
+//     postCarousel.forEach( () => {
+//         console.log('work')
+//         var slideIndex = 1;
+//         showSlides(slideIndex);
+
+//         // Next/previous controls
+//         function plusSlides(n) {
+//         showSlides(slideIndex += n);
+//         }
+
+//         // Thumbnail image controls
+//         function currentSlide(n) {
+//         showSlides(slideIndex = n);
+//         }
+
+//         function showSlides(n) {
+//         var i;
+
+//         if (n > slides.length) {slideIndex = 1}
+//         if (n < 1) {slideIndex = slides.length}
+//         for (i = 0; i < slides.length; i++) {
+//             slides[i].style.display = "none";
+//         }
+
+//         slides[slideIndex-1].style.display = "block";
+
+//         }        
+//     })
+// }
+
+
 const likeUnlikePosts = ()=> {
     const likeUnlikeForms = [...document.getElementsByClassName('like-unlike-forms')]
     likeUnlikeForms.forEach(form=> form.addEventListener('submit', e=>{
@@ -36,6 +70,7 @@ const likeUnlikePosts = ()=> {
         const clickedId = e.target.getAttribute('data-form-id')
         const clickedBtn = document.getElementById(`like-unlike-${clickedId}`)
         console.log('like-unlike')
+        
         $.ajax({
             type: 'POST',
             url: "/like-unlike/",
@@ -46,6 +81,11 @@ const likeUnlikePosts = ()=> {
             success: function(response){
                 //console.log('response', response)  //for debug
                 clickedBtn.textContent = response.liked ? `Unlike (${response.count})` : `like (${response.count})`
+                response.forEach(element => {
+                    likeBox.innerHTML += `
+                        ${element.liked ? `Unlike (${element.count})` : `Like (${element.count})`}
+                    `
+                });
             },
             error: function(error){
                 //console.log('error', error)        //for debug
@@ -56,6 +96,7 @@ const likeUnlikePosts = ()=> {
 }
 
 
+  var slides = document.getElementsByClassName("mySlides");
 
 const getData = () => {
     $.ajax({
@@ -67,53 +108,10 @@ const getData = () => {
             setTimeout(() => {
                 spinnerBox.classList.add('is-hidden')
                 console.log(data)
-                data.forEach(element => {
-                    postsBox.innerHTML += `
-                    <div class="card mb-1">
-                        <div class="card-content">
-                            <div class="media">
-                                <div class="media-left">
-                                    <figure class="image is-48x48">
-                                        <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image" class="is-rounded">
-                                    </figure>
-                                </div>
-                                <div class="media-content">
-                                    <p class="title is-4">${element.user}</p>
-                                    <time datetime="2016-1-1">${element.posted}</time>
-                                </div>                        
-                            </div>
-                        </div>
-        
-                        <div class=""card-image>
-                            <figure class="image is-4by3">
-                                <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-                            </figure>                
-                        </div>
-        
-                        <div class="card-content">
-                            <div class="content">
-                                ${element.caption}
-                            </div>
-                        </div>
-        
-                        <div class="card-footer">
-                            <div class="card-footer-item">
-                                <form class="like-unlike-forms" data-form-id="${element.id}">
-                                    <button class="button is-white" id="like-unlike-${element.id}">
-                                        ${element.liked ? `Unlike (${element.count})` : `Like (${element.count})`}
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="card-footer-item">comment</div>
-                            <div class="card-footer-item">share</div>
-                            <div class="card-footer-item">
-                                <a href="${url}${element.id}">Detail</a>
-                            </div>
-                        </div>
-        
-                    </div>
-                    `
-                });
+                // data.forEach(element => {
+                //     postsBox.innerHTML += ``
+                // });
+                
                 likeUnlikePosts()
             }, 500) //setTimeout()
         },
@@ -195,6 +193,5 @@ const getData = () => {
 //         }
 //     })
 // })
-
 
 getData()

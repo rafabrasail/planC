@@ -4,11 +4,12 @@ from .views import (
     list_and_create_posts,
     load_posts,
     like_unlike_post,
-    post_detail,
+    PostDetails,
     post_detail_json,
     update_posts,
     delete_posts,
-    NewPost
+    NewPost,
+    tags
 )
 
 app_name = 'posts'
@@ -17,9 +18,10 @@ urlpatterns = [
     path('', list_and_create_posts, name='main-board'),
     path('create-post/', NewPost, name='create-post'),
     path('posts/', load_posts, name='posts-data'),
+    path('tag/<slug:tag_slug>', tags, name='tags'),
     path('like-unlike/', like_unlike_post, name='like-unlike'),
     path('<pk>/data/', post_detail_json, name='posts-detail-json'),
-    path('<pk>/', post_detail, name='posts-detail'),
+    path('<uuid:post_id>/', PostDetails, name='postdetails'),
     path('<pk>/update/', update_posts, name='update-post'),
     path('<pk>/delete/', delete_posts, name='delete-post'),
     

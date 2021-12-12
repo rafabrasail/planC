@@ -1,12 +1,11 @@
 from django.db import models
-# from django.contrib.auth.models import User
-from users.models import User
-from author.models import Profile
+from django.conf import settings  #new user
 from django.db.models.signals import post_save, post_delete
 from django.utils.text import slugify
 from django.urls import reverse
 import uuid
-from django.conf import settings
+
+
 # from notifications.models import Notifications
 
 
@@ -51,7 +50,7 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag, related_name='tags', blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
-    liked = models.ManyToManyField(Profile, blank=True)
+    liked = models.IntegerField(default=0)
 
     def get_absolute_url(self):
         return reverse('postdetails', args=[str(self.id)])
@@ -63,8 +62,8 @@ class Post(models.Model):
     def like_count(self):
         return self.liked.all().count()
 
-    # class Meta:
-    #     ordering = ('-posted',)
+    class Meta:
+        ordering = ('-posted',)
 
 
 class Follow(models.Model):

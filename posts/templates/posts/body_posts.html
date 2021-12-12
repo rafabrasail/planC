@@ -1,0 +1,64 @@
+{% load static %}
+
+{% for post_item in post_items %}
+<div class="card mb-1">
+
+<div class="card-content">
+    <div class="media">
+    <div class="media-left">
+        <figure class="image is-48x48">
+        {% if post_item.user.profile.picture %}
+            <img src="{{ post_item.user.profile.picture.url }}" alt="Placeholder image">
+        {% else %}
+            <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+        {% endif %}
+        </figure>
+    </div>
+    <div class="media-content">
+        <p class="title is-5">{{ post_item.user.username }}</p>
+        <small><time datetime="2016-1-1">{{ post_item.posted }}</time></small>
+    </div>
+    </div>
+</div>
+
+<div class="card-image">
+    {% if post_item.content.first.file.name|slice:"-3:" == 'jpg' or post_item.content.first.file.name|slice:"-3:" == 'png' or post_item.content.first.file.name|slice:"-3:" == 'jpeg'%}
+    <figure class="image is-4by3">
+    <a href="{% url 'posts:postdetails' post_item.id %}">
+        <img src="{{ post_item.content.first.file.url }}" alt="Placeholder image">
+    </a>
+    </figure>
+    {% else %}
+    <a href="#">
+        <video width="1080" controls="controls" preload="metadata">
+        <source src="{{ post_item.content.first.file.url }}#t=0.5" type="video/mp4">
+        </video>
+    </a>
+    {% endif %}
+</div>
+
+<!-- body of the post -->
+<div class="card-content">
+    <div class="content" id="post-caption">
+        {{ post_item.caption }}
+    </div>
+</div> <!-- body of the post -->               
+
+<div class="card-footer">
+    <div class="card-footer-item">
+        <form class="like-unlike-forms" data-form-id="{{ post_item.id }}">
+            <button class="button is-white" id="like-unlike-{{ post_item.id }}">
+                <div id="like-box"></div>
+            </button>
+        </form>
+    </div>
+    <div class="card-footer-item">comment</div>
+    <div class="card-footer-item">share</div>
+    <div class="card-footer-item">
+        <a href="#">Detail</a>
+    </div>
+</div>            
+
+
+</div> <!-- card -->
+{% endfor %}

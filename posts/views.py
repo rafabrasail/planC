@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.http import JsonResponse
 from .forms import NewPostForm
 from django.urls import reverse
-from author.models import Profile
+
 from django.views.decorators.csrf import csrf_exempt
 # from comment.models import Comment
 # from comment.forms import CommentForm
@@ -16,8 +16,25 @@ from django.views.decorators.csrf import csrf_exempt
 @login_required
 @csrf_exempt
 def list_and_create_posts(request):
-    context = {}
-    return render(request, 'posts/mainpage.html', context)
+    user = request.user
+    posts = Stream.objects.filter(user=user)
+
+    group_ids = []
+    for post in posts:
+        group_ids.append(post.post_id)
+
+    post_items = Post.objects.filter(
+        id__in=group_ids).all().order_by('-posted')
+
+
+    template = loader.get_template('posts/mainpage.html')
+
+    context = {
+        'post_items': post_items,
+    }
+
+    return HttpResponse(template.render(context, request))
+
 
 
 
@@ -142,16 +159,44 @@ def like_unlike_post(request):
         return JsonResponse({'liked': liked, 'count': obj.like_count})
 
 
-def post_detail(request, pk):
-    obj = Post.objects.get(pk=pk)
-    form = NewPostForm()
+@login_required
+def PostDetails(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    #profile = Profile.objects.get(user=request.user)
+    favorited = False
+
+    #Comment
+    # comments = Comment.objects.filter(post=post).order_by('date')
+
+    #Comment Form
+    # if request.method == 'POST':
+    #     form = CommentForm(request.POST)
+    #     if form.is_valid():
+    #         comment = form.save(commit=False)
+    #         comment.post = post
+    #         comment.user = request.user
+    #         comment.save()
+    #         return HttpResponseRedirect(reverse('postdetails', args=[post_id]))
+    # else:
+    #     form = CommentForm()
+
+    #Favorite Color conditional
+    if request.user.is_authenticated:
+        profile = Profile.objects.get(user=request.user)
+
+        #For the color of the favorite button
+        if profile.favorites.filter(id=post_id).exists():
+            favorited = True
+
+    template = loader.get_template('posts/posts_detail.html')
 
     context = {
-        'obj': obj,
-        'form': form
+        'post': post,
+        'favorited': favorited,
+        # 'form': form,
+        # 'comments': comments,
     }
-
-    return render(request, 'posts/posts_detail.html', context)
+    return HttpResponse(template.render(context, request))
 
 
 def post_detail_json(request, pk):
@@ -183,6 +228,19 @@ def delete_posts(request, pk):
     if request.is_ajax():
         obj.delete()
         return JsonResponse({})
+
+
+@login_required
+def tags(request, tag_slug):
+    tag = get_object_or_404(Tag, slug=tag_slug)
+    posts = Post.objects.filter(tags=tag).order_by('-posted')
+
+    template = loader.get_template('tag.html')
+    context = {
+        'posts': posts,
+        'tag': tag,
+    }
+    return HttpResponse(template.render(context,request))        
 
 
 # @login_required

@@ -4,6 +4,7 @@
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/post.css' %}">
+<link rel="stylesheet" href="{% static 'css/slideshow.css' %}">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 {% endblock css %}
 
@@ -15,32 +16,23 @@
 
         <!-- banner column -->
         <div class="column is-one-fifth" >
-          <div style="position: fixed; width: 11vw;">
-            <img src="{% static 'img/banner.png' %}" alt="" style="padding-top: 20px;">
-          </div>
+          {% include 'banner.html' %}
         </div>
-        <!-- banner column -->
+
 
         <!-- main column -->
         <div class="column is-half">
+          <a class="button is-primary mb-1 mt-1" href="{% url 'posts:create-post' %}">new post</a>
 
-          <br>
+          {% include 'posts/body_posts.html' %}
 
-          <a class="button is-primary" href="{% url 'posts:create-post' %}">new post</a>
-          <br>
-     
-          
-          <br>
-
-          <div id="posts-box"></div>
+          <!-- <div id="posts-box"></div>  -- innerHTML from JS -->
 
           <div id="spinner-box">
             <progress class="progress is-small is-primary" max="100"></progress>
           </div>
 
-
         </div>
-        <!-- main column -->
 
         <!-- right column -->
         <div class="column">

@@ -11,7 +11,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 from django.core.paginator import Paginator
 from django.urls import resolve, reverse
-
+from posts.models import Post, Follow
 from users.models import User
 #from django.contrib.auth.models import User
 #from django.contrib.auth import get_user_model
@@ -21,37 +21,37 @@ from users.models import User
 @login_required
 def UserMainPage(request, username):
     user = get_object_or_404(User, username=username)
-    #user = get_object_or_404(settings.AUTH_USER_MODEL, username=username)
+    # user = get_object_or_404(settings.AUTH_USER_MODEL, username=username)
     profile = Profile.objects.get(user=user)
     url_name = resolve(request.path).url_name
 	
-    # if url_name == 'profile':
-    #     posts = Post.objects.filter(user=user).order_by('-posted')
-    # else:
-    #     posts = profile.favorites.all()
+    if url_name == 'profile':
+        posts = Post.objects.filter(user=user).order_by('-posted')
+    else:
+        posts = profile.favorites.all()
 
     #Profile info box
-    # posts_count = Post.objects.filter(user=user).count()
-    # following_count = Follow.objects.filter(follower=user).count()
-    # followers_count = Follow.objects.filter(following=user).count()
+    posts_count = Post.objects.filter(user=user).count()
+    following_count = Follow.objects.filter(follower=user).count()
+    followers_count = Follow.objects.filter(following=user).count()
 
 	#follow status
-    # follow_status = Follow.objects.filter(following=user, follower=request.user).exists()
+    follow_status = Follow.objects.filter(following=user, follower=request.user).exists()
 
     #Pagination
-    # paginator = Paginator(posts, 8)
-    # page_number = request.GET.get('page')
-    # posts_paginator = paginator.get_page(page_number)
+    paginator = Paginator(posts, 8)
+    page_number = request.GET.get('page')
+    posts_paginator = paginator.get_page(page_number)
 
-    template = loader.get_template('mainpage.html')
+    template = loader.get_template('author/profile.html')
 
     context = {
         'profile':profile,
-        # 'posts': posts_paginator,
-        # 'following_count':following_count,
-        # 'followers_count':followers_count,
-        # 'posts_count':posts_count,
-        # 'follow_status':follow_status,
+        'posts': posts_paginator,
+        'following_count':following_count,
+        'followers_count':followers_count,
+        'posts_count':posts_count,
+        'follow_status':follow_status,
         'url_name':url_name,
     }
 
@@ -119,5 +119,25 @@ def ContinueRegisterSingUp(request):
     }
 
     return render(request, 'author/cont_profile.html', context)
+
+
+def ChangePasswordByUser(request):
+    user = request.user
+    if request.method == 'POST':
+        form = ChangePasswordForm(request.POST)
+        if form.is_valid():
+            new_password = form.cleaned_data.get('new_password')
+            user.set_password(new_password)
+            user.save()
+            update_session_auth_hash(request, user)
+            return redirect('')
+    else:
+        form = ChangePasswordForm(instance = user)
+
+    context = {
+        'form': form
+    }
+
+    return render(request, '', context)
 
 

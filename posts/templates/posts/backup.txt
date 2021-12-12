@@ -1,0 +1,56 @@
+<div class="card mb-1">
+    <div class="card-content">
+        <div class="media">
+            <div class="media-left">
+                <figure class="image is-48x48">
+                    <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image" class="is-rounded">
+                </figure>
+            </div>
+            <div class="media-content">
+                <p class="title is-4">${element.user}</p>
+                <time datetime="2016-1-1">${element.posted}</time>
+            </div>                        
+        </div>
+    </div>
+
+    <div class=""card-image>
+        <div class="slideshow-container">
+            <div class="mySlides fade">
+                
+
+
+        <figure class="image is-4by3">
+            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+        </figure>     
+        
+
+            </div>
+        </div>
+
+
+        
+
+    </div>
+
+    <div class="card-content">
+        <div class="content">
+            ${element.caption}
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <div class="card-footer-item">
+            <form class="like-unlike-forms" data-form-id="${element.id}">
+                <button class="button is-white" id="like-unlike-${element.id}">
+                    ${element.liked ? `Unlike (${element.count})` : `Like (${element.count})`}
+                </button>
+            </form>
+        </div>
+        <div class="card-footer-item">comment</div>
+        <div class="card-footer-item">share</div>
+        <div class="card-footer-item">
+            <a href="${url}${element.id}">Detail</a>
+        </div>
+    </div>
+
+</div>

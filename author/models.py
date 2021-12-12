@@ -1,14 +1,13 @@
 from django.db import models
 # from django.contrib.auth.models import User
 # from users.models import User
-from django.conf import settings
+from posts.models import Post
+
 from django.db.models.signals import post_save
-from django.contrib.auth import get_user_model
+
 from PIL import Image
-
+from django.conf import settings
 import os
-import author
-
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -32,17 +31,15 @@ class Profile(models.Model):
     )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    #user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
     first_name = models.CharField(max_length=50, null=True, blank=True)
     last_name = models.CharField(max_length=50, null=True, blank=True)
-    #nome artistico ou de atleta 
     location = models.CharField(max_length=50, null=True, blank=True)
     url = models.CharField(max_length=80, null=True, blank=True)
     profile_info = models.TextField(max_length=150, null=True, blank=True)
     born = models.DateField(auto_now_add=False, null=True, blank=True)
     favorite_foot = models.CharField(max_length=1, choices=FOOT, default="E")
     club = models.CharField(max_length=50, null=True, blank=True)
-    # favorites = models.ManyToManyField(Post)
+    favorites = models.ManyToManyField(Post)
     picture = models.ImageField(upload_to=user_directory_path, blank=True, null=True, verbose_name='Picture')    
     created = models.DateField(auto_now_add=True)
     update = models.DateField(auto_now_add=True)
